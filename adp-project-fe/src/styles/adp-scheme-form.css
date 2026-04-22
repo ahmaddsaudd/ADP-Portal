@@ -1,0 +1,151 @@
+.scheme-form-page {
+  padding: 52px 28px 28px;
+}
+
+.scheme-form-stack {
+  max-width: 1080px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.scheme-form-card {
+  background: #ffffff;
+  border: 1px solid #e6ebf2;
+  border-radius: 20px;
+  box-shadow:
+    0 1px 2px rgba(16, 24, 40, 0.03),
+    0 8px 24px rgba(16, 24, 40, 0.04);
+  overflow: hidden;
+}
+
+.scheme-form-header {
+  padding: 26px 28px 18px;
+  border-bottom: 1px solid #edf1f5;
+  background: #fbfcfd;
+}
+
+.scheme-form-header h1,
+.scheme-form-header h2 {
+  margin: 0;
+  font-size: 34px;
+  line-height: 1.1;
+  font-family: Georgia, serif;
+  color: #172033;
+}
+
+.scheme-form-header h2 {
+  font-size: 28px;
+}
+
+.scheme-form-header p {
+  margin: 8px 0 0;
+  color: #8b95a7;
+  font-size: 15px;
+}
+
+.scheme-form {
+  padding: 28px;
+}
+
+.scheme-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field-wide {
+  grid-column: span 2;
+}
+
+.form-field label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.form-field input,
+.form-field select {
+  height: 52px;
+  border: 1px solid #d8dee8;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 0 16px;
+  font-size: 14px;
+  color: #1f2937;
+  outline: none;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  border-color: #21c77a;
+  box-shadow: 0 0 0 3px rgba(33, 199, 122, 0.12);
+}
+
+.scheme-form-error {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.scheme-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-bottom: 16px;
+  margin-top: 15px;
+}
+
+.btn-secondary,
+.btn-primary {
+  height: 46px;
+  border-radius: 12px;
+  padding: 0 18px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background: #ffffff;
+  border: 1px solid #d8dee8;
+  color: #374151;
+}
+
+.btn-primary {
+  border: none;
+  background: #0b5c44;
+  color: #ffffff;
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.scheme-form-state {
+  padding: 28px;
+  color: #6b7280;
+}
+
+@media (max-width: 900px) {
+  .scheme-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-field-wide {
+    grid-column: span 1;
+  }
+}

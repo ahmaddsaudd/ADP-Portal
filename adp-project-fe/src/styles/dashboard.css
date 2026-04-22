@@ -1,0 +1,341 @@
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    background: #f5f7fa;
+}
+
+.dashboard-page {
+    flex: 1;
+    min-height: 100vh;
+    background: #f5f7fa;
+    overflow-x: hidden;
+}
+
+.dashboard-topbar {
+    height: 76px;
+    background: #ffffff;
+    border-bottom: 1px solid #e7ebf0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.fy-select {
+    border: 1px solid #d7dde5;
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-weight: 700;
+    color: #4b5563;
+    font-size: 14px;
+}
+
+.dashboard-user-top {
+    text-align: right;
+}
+
+.dashboard-user-top h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.dashboard-user-top p {
+    margin: 4px 0 0;
+    font-size: 11px;
+    color: #00a76f;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.dashboard-body {
+    padding: 28px 28px 36px;
+    max-width: 1320px;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 34px;
+    line-height: 1.1;
+    font-family: Georgia, serif;
+    color: #172033;
+}
+
+.page-header p {
+    margin: 8px 0 0;
+    font-size: 15px;
+    color: #8b95a7;
+}
+
+.summary-grid {
+    margin-top: 26px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.summary-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 22px 22px 26px;
+    border: 1px solid #edf1f5;
+    border-top-width: 4px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+.border-slate {
+    border-top-color: #b7c2d0;
+}
+
+.border-green {
+    border-top-color: #21c77a;
+}
+
+.border-purple {
+    border-top-color: #a88bff;
+}
+
+.border-red {
+    border-top-color: #ff7a7a;
+}
+
+.summary-card-title {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 800;
+    color: #9aa3b2;
+    letter-spacing: 0.04em;
+}
+
+.summary-card-value {
+    margin: 18px 0 0;
+    font-size: 34px;
+    font-weight: 800;
+    color: #182235;
+}
+
+.dashboard-main-grid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
+    gap: 22px;
+    align-items: start;
+}
+
+.execution-card,
+.stalled-card {
+    background: #ffffff;
+    border: 1px solid #edf1f5;
+    border-radius: 18px;
+    padding: 26px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+.execution-card h2,
+.stalled-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+    color: #1f2937;
+}
+
+.execution-card p {
+    margin: 8px 0 0;
+    color: #98a2b3;
+    font-size: 14px;
+}
+
+.breakdown-grid {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.breakdown-card {
+    border-radius: 16px;
+    padding: 20px;
+    border: 1.5px solid;
+    background: #fff;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 16px;
+}
+
+.breakdown-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(16, 24, 40, 0.06);
+}
+
+.breakdown-card.approved {
+    border-color: #9fe3ba;
+    background: #fbfffc;
+}
+
+.breakdown-card.revision {
+    border-color: #f0d37a;
+    background: #fffdf8;
+}
+
+.breakdown-card.unapproved {
+    border-color: #b7cdfd;
+    background: #fbfdff;
+}
+
+.breakdown-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.breakdown-card-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.breakdown-card.approved h3,
+.breakdown-card.approved .breakdown-total {
+    color: #11945f;
+}
+
+.breakdown-card.revision h3,
+.breakdown-card.revision .breakdown-total {
+    color: #b25a00;
+}
+
+.breakdown-card.unapproved h3,
+.breakdown-card.unapproved .breakdown-total {
+    color: #2957d6;
+}
+
+.breakdown-total {
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.breakdown-divider {
+    margin: 16px 0;
+    height: 1px;
+    background: #e8edf4;
+}
+
+.breakdown-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.breakdown-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 15px;
+    color: #344054;
+}
+
+.breakdown-pill {
+    min-width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    background: #eef2f7;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    color: #475467;
+}
+
+.stalled-card {
+    border-color: #f6d3d3;
+}
+
+.stalled-title {
+    color: #d92d20;
+}
+
+.stalled-list {
+    margin-top: 20px;
+    max-height: 320px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.stalled-item {
+    border: 1px solid #f2d6d6;
+    background: #fff6f6;
+    border-radius: 14px;
+    padding: 16px;
+}
+
+.stalled-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.stalled-adp {
+    font-size: 11px;
+    font-weight: 800;
+    color: #d25555;
+    border: 1px solid #efc2c2;
+    border-radius: 6px;
+    padding: 4px 8px;
+    background: white;
+}
+
+.stalled-status {
+    font-size: 11px;
+    font-weight: 800;
+    color: #9aa3b2;
+    text-transform: uppercase;
+}
+
+.stalled-name {
+    margin: 14px 0 10px;
+    font-size: 16px;
+    color: #1f2937;
+}
+
+.stalled-pending {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ef4444;
+}
+
+.empty-stalled {
+    border: 1px dashed #d9dee7;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    color: #8b95a7;
+    background: #fafbfc;
+}
+
+@media (max-width: 1200px) {
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .breakdown-grid {
+        grid-template-columns: 1fr;
+    }
+}

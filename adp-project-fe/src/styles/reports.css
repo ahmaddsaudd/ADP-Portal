@@ -1,0 +1,203 @@
+.reports-page {
+  padding: 24px;
+}
+
+.reports-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.reports-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 24px 24px 18px;
+}
+
+.reports-header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.reports-header p {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 1.05rem;
+}
+
+.reports-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.reports-tab {
+  border: none;
+  background: transparent;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 800;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.reports-tab.active {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.reports-state {
+  padding: 40px 24px;
+  color: #6b7280;
+}
+
+.reports-state.error {
+  color: #dc2626;
+}
+
+.reports-table-scroll {
+  overflow-x: auto;
+  padding: 0 24px 24px;
+}
+
+.reports-table {
+  width: 100%;
+  min-width: 1300px;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #d9e0e7;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.reports-table th,
+.reports-table td {
+  border: 1px solid #d9e0e7;
+  padding: 14px 12px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.reports-table th {
+  background: #f8fafc;
+  color: #374151;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.financials-table td {
+  text-align: center;
+}
+
+.financials-table td:nth-child(1),
+.financials-table td:nth-child(2),
+.financials-table th:nth-child(1),
+.financials-table th:nth-child(2) {
+  text-align: left;
+}
+
+.adp-cell {
+  font-weight: 800;
+  color: #1f2937;
+  white-space: nowrap;
+}
+
+.total-cell {
+  font-weight: 800;
+  color: #1f2937;
+}
+
+.remark-cell {
+  min-width: 260px;
+  font-style: italic;
+}
+
+.muted {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.status-pill.continue {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-pill.unsatisfactory {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.status-pill.neutral {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.progress-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mini-progress-bar {
+  width: 64px;
+  height: 6px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+
+.mini-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.mini-progress-fill.green {
+  background: #22c55e;
+}
+
+.mini-progress-fill.amber {
+  background: #f59e0b;
+}
+
+.mini-progress-fill.gray {
+  background: #cbd5e1;
+}
+
+.reports-empty-row {
+  text-align: center !important;
+  color: #9ca3af;
+  font-style: italic;
+  padding: 30px !important;
+}
+
+@media (max-width: 900px) {
+  .reports-page {
+    padding: 16px;
+  }
+
+  .reports-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .reports-tabs {
+    width: fit-content;
+  }
+}
