@@ -11,6 +11,11 @@ export const databaseConfig: TypeOrmModuleOptions & DataSourceOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+
+  ssl: {
+    rejectUnauthorized: false,
+  },
+
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/../database/migrations/*{.ts,.js}'],
   autoLoadEntities: true,

@@ -30,3 +30,5 @@ uploads/
 # IDE
 .vscode/
 .idea/
+
+postgresql://neondb_owner:npg_mZfJ9N1KwgsB@ep-crimson-mode-anzm81mv.c-6.us-east-1.aws.neon.tech/neondb?sslmode=require
