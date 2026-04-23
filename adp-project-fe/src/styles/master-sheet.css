@@ -283,7 +283,7 @@
 
 .status-badge.execution.continue,
 .status-badge.execution.on-track,
-.status-badge.execution.on-track-/-continue {
+.status-badge.execution.on-track-continue {
   background: #dcfce7;
   color: #15803d;
   border-color: #bbf7d0;

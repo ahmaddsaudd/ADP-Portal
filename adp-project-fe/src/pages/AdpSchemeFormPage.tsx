@@ -81,17 +81,17 @@ export default function AdpSchemeFormPage() {
       setSaving(true);
       setError("");
 
-      const payload = {
+      const payload: AdpSchemeFormValues = {
         adpNo: form.adpNo,
         schemeName: form.schemeName,
-        district: form.district || undefined,
-        sector: form.sector || undefined,
-        type: form.type || undefined,
-        subType: form.subType || undefined,
-        approvalStatus: form.approvalStatus || undefined,
-        executionStatus: form.executionStatus || undefined,
-        initialApprovalDate: form.initialApprovalDate || undefined,
-        targetDate: form.targetDate || undefined,
+        district: form.district ?? "",
+        sector: form.sector ?? "",
+        type: form.type ?? "",
+        subType: form.subType ?? "",
+        approvalStatus: form.approvalStatus ?? "",
+        executionStatus: form.executionStatus ?? "",
+        initialApprovalDate: form.initialApprovalDate ?? "",
+        targetDate: form.targetDate ?? "",
       };
 
       if (isEditMode && id) {

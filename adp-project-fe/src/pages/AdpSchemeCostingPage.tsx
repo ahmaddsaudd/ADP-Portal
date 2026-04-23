@@ -102,24 +102,24 @@ export default function AdpSchemeCostingPage() {
       setSaving(true);
       setError("");
 
-      const payload = {
+      const payload: AdpSchemeCostingFormValues = {
         financialYear: form.financialYear,
-        estimatedCostCap: form.estimatedCostCap || undefined,
-        estimatedCostRev: form.estimatedCostRev || undefined,
-        priorExpCap: form.priorExpCap || undefined,
-        priorExpRev: form.priorExpRev || undefined,
-        throwForwardCap: form.throwForwardCap || undefined,
-        throwForwardRev: form.throwForwardRev || undefined,
-        allocCfyCap: form.allocCfyCap || undefined,
-        allocCfyRev: form.allocCfyRev || undefined,
-        revAllocCfyCap: form.revAllocCfyCap || undefined,
-        revAllocCfyRev: form.revAllocCfyRev || undefined,
-        releasesCfyCap: form.releasesCfyCap || undefined,
-        releasesCfyRev: form.releasesCfyRev || undefined,
-        moduleACap: form.moduleACap || undefined,
-        moduleARev: form.moduleARev || undefined,
-        moduleBCap: form.moduleBCap || undefined,
-        moduleBRev: form.moduleBRev || undefined,
+        estimatedCostCap: form.estimatedCostCap ?? "",
+        estimatedCostRev: form.estimatedCostRev ?? "",
+        priorExpCap: form.priorExpCap ?? "",
+        priorExpRev: form.priorExpRev ?? "",
+        throwForwardCap: form.throwForwardCap ?? "",
+        throwForwardRev: form.throwForwardRev ?? "",
+        allocCfyCap: form.allocCfyCap ?? "",
+        allocCfyRev: form.allocCfyRev ?? "",
+        revAllocCfyCap: form.revAllocCfyCap ?? "",
+        revAllocCfyRev: form.revAllocCfyRev ?? "",
+        releasesCfyCap: form.releasesCfyCap ?? "",
+        releasesCfyRev: form.releasesCfyRev ?? "",
+        moduleACap: form.moduleACap ?? "",
+        moduleARev: form.moduleARev ?? "",
+        moduleBCap: form.moduleBCap ?? "",
+        moduleBRev: form.moduleBRev ?? "",
       };
 
       if (costingId) {
