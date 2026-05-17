@@ -48,18 +48,18 @@ export class AdpSchemesService {
       throw new BadRequestException('ADP number already exists');
     }
 
-    const entity = this.adpSchemeRepo.create(createDto);
+    const entity = this.adpSchemeRepo.create({
+      ...createDto,
+      financialYear: createDto.financialYear || '2025-26',
+    });
     return this.adpSchemeRepo.save(entity);
   }
 
-  async findAll() {
+  async findAll(financialYear = '2025-26') {
     return this.adpSchemeRepo.find({
+      where: { financialYear },
+      relations: ['costings'],
       order: { createdAt: 'DESC' },
-      relations: {
-        // documents: true,
-        // comments: true,
-        costings: true,
-      },
     });
   }
 
@@ -163,10 +163,42 @@ export class AdpSchemesService {
     return this.costingRepo.save(costing);
   }
 
-  async addComment(adpSchemeId: string, dto: CreateAdpSchemeCommentDto) {
-    await this.ensureSchemeExists(adpSchemeId);
-    const entity = this.commentRepo.create({ ...dto, adpSchemeId });
-    return this.commentRepo.save(entity);
+  async addComment(
+    id: string,
+    dto: CreateAdpSchemeCommentDto,
+    user?: any,
+  ) {
+    const scheme = await this.adpSchemeRepo.findOne({
+      where: { id },
+    });
+
+    if (!scheme) {
+      throw new NotFoundException('ADP scheme not found');
+    }
+
+    const commentedBy =
+      user?.fullName ||
+      user?.name ||
+      user?.email ||
+      user?.role ||
+      'System User';
+
+    // console.log('Adding comment by:', commentedBy);
+
+
+    const comment = this.commentRepo.create({
+      adpScheme: scheme,
+      comment: dto.comment,
+      commentedBy,
+    });
+
+    const saved = await this.commentRepo.save(comment);
+    return {
+      id: saved.id,
+      comment: saved.comment,
+      commentedBy: saved.commentedBy,
+      createdAt: saved.createdAt,
+    };
   }
 
   async addDocument(
@@ -229,11 +261,15 @@ export class AdpSchemesService {
 
     const remarks = comments.map((comment: any) => ({
       id: comment.id,
-      text:
+      comment:
         comment.comment ||
         comment.remarks ||
-        comment.text ||
         'No remark text available',
+
+      commentedBy:
+        comment.commentedBy ||
+        'System User',
+
       createdAt: this.formatDateTime(comment.createdAt),
     }));
 
@@ -311,11 +347,8 @@ export class AdpSchemesService {
       totalSteps,
       remarks: comments.map((comment: any) => ({
         id: comment.id,
-        text:
-          comment.comment ||
-          comment.remarks ||
-          comment.text ||
-          'No remark text available',
+        comment: comment.comment || 'No remark text available',
+        commentedBy: comment.commentedBy || 'System User',
         createdAt: this.formatDateTime(comment.createdAt),
       })),
     };

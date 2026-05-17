@@ -10,7 +10,8 @@ export type PipelineStageItem = {
 
 export type PipelineRemarkItem = {
   id: string;
-  text: string;
+  comment: string;
+  commentedBy?: string;
   createdAt: string | null;
 };
 

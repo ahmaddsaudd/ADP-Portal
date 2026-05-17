@@ -35,7 +35,7 @@ export default function LoginPage() {
         </div>
 
         <h1>Welcome back</h1>
-        <p>Select your role to access the portal</p>
+        <p>Enter Your User credentials</p>
 
         <input
           type="email"

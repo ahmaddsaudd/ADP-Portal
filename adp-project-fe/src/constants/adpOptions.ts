@@ -1,0 +1,46 @@
+export const ADP_SUB_SECTORS = [
+  "Teaching Hospitals",
+  "Other Hospitals",
+  "Medical Education",
+  "PHC Administration / Training",
+  "Preventive Programs",
+  "Foreign Aided Projects",
+];
+
+export const ADP_DISTRICTS = [
+  "Hyderabad",
+  "Dadu",
+  "Badin",
+  "Sujawal",
+  "Jamshoro",
+  "Tando Allahyar",
+  "Thatta",
+  "Matiari",
+  "Tando Muhammad Khan",
+  "Mirpurkhas",
+  "Tharparkar",
+  "Umerkot",
+  "Sukkur",
+  "Ghotki",
+  "Khairpur",
+  "Larkana",
+  "Jacobabad",
+  "Shikarpur",
+  "Kamber",
+  "Kashmore",
+  "Shaheed Benazirabad",
+  "Sanghar",
+  "Naushero Feroz",
+  "Karachi West",
+  "Karachi East",
+  "Karachi Korangi",
+  "Karachi Central",
+  "Karachi South",
+  "Karachi Malir",
+  "Karachi Kemari",
+];
+
+export const ADP_SUB_TYPES = [
+  "Likely to be completed",
+  "Standard",
+];

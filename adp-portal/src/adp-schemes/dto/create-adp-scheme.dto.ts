@@ -4,6 +4,7 @@ import {
   IsEnum,
   IsOptional,
   IsString,
+  Matches,
   MaxLength,
 } from 'class-validator';
 import {
@@ -14,12 +15,16 @@ import {
 
 export class CreateAdpSchemeDto {
   @ApiProperty({
-    example: 'ADP-2025-001',
-    maxLength: 100,
-    description: 'Unique ADP number for the scheme',
+    example: 'HLDTH-PP-16-0039',
+    maxLength: 16,
+    description:
+      'ADP number format: XXXXX-XX-00-0000 (5 uppercase letters - 2 uppercase letters - 2 digits - 4 digits)',
   })
   @IsString()
-  @MaxLength(100)
+  @Matches(/^[A-Z]{5}-[A-Z]{2}-\d{2}-\d{4}$/, {
+    message:
+      'ADP number must be in format XXXXX-XX-00-0000 (example: HLDTH-PP-16-0039)',
+  })
   adpNo: string;
 
   @ApiProperty({
@@ -38,6 +43,11 @@ export class CreateAdpSchemeDto {
   @IsOptional()
   @IsString()
   district?: string;
+
+  @ApiPropertyOptional({ example: '2025-26' })
+  @IsOptional()
+  @IsString()
+  financialYear?: string;
 
   @ApiPropertyOptional({
     example: 'Health',

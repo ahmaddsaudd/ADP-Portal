@@ -1,4 +1,5 @@
 import {
+  Check,
   Column,
   CreateDateColumn,
   Entity,
@@ -24,8 +25,9 @@ export class AdpScheme {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Check(`"adp_no" ~ '^[A-Z]{5}-[A-Z]{2}-[0-9]{2}-[0-9]{4}$'`)
   @Index({ unique: true })
-  @Column({ name: 'adp_no', type: 'varchar', length: 100 })
+  @Column({ name: 'adp_no', type: 'varchar', length: 16 })
   adpNo: string;
 
   @Column({ name: 'scheme_name', type: 'varchar', length: 500 })
@@ -80,6 +82,14 @@ export class AdpScheme {
     default: AdpWorkflowStage.PROPOSAL_AND_FEASIBILITY,
   })
   currentStage: AdpWorkflowStage;
+
+  @Column({
+    name: 'financial_year',
+    type: 'varchar',
+    length: 20,
+    default: '2025-26',
+  })
+  financialYear: string;
 
   @Column({
     name: 'current_step',

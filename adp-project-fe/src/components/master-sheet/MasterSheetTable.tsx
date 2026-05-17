@@ -74,7 +74,7 @@ export default function MasterSheetTable({
             <th rowSpan={2}>ADP #</th>
             <th rowSpan={2}>Scheme Name</th>
             <th rowSpan={2}>District</th>
-            <th rowSpan={2}>Sector</th>
+            <th rowSpan={2}>Sub-Sector</th>
             <th rowSpan={2}>Type</th>
             <th rowSpan={2}>Sub-Type</th>
             <th rowSpan={2}>Approval Status</th>

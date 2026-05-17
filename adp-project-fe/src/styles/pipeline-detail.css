@@ -17,6 +17,43 @@
   cursor: pointer;
 }
 
+.scheme-comments-box {
+  margin-bottom: 28px;
+}
+
+.scheme-comments-box h3 {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  color: #8a94a6;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+
+.scheme-comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scheme-comment-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-left: 4px solid #059669;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.scheme-comment-card p {
+  margin: 0 0 6px;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.scheme-comment-card small {
+  color: #9ca3af;
+}
+
+
 .gallery-card {
   width: 140px;
   height: 110px;

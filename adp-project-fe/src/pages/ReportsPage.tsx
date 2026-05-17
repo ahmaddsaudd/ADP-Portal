@@ -10,6 +10,7 @@ import type {
 } from "../types/reports.types";
 import "../styles/dashboard.css";
 import "../styles/reports.css";
+import { DEFAULT_FINANCIAL_YEAR, FINANCIAL_YEARS } from "../constants/financialYears";
 
 type ReportTab = "MONTHLY_FINANCIALS" | "PHYSICAL_PROGRESS";
 
@@ -24,6 +25,9 @@ export default function ReportsPage() {
   const [physicalData, setPhysicalData] = useState<GlobalPhysicalProgressResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedFinancialYear, setSelectedFinancialYear] = useState(
+    localStorage.getItem("selectedFinancialYear") || DEFAULT_FINANCIAL_YEAR
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +58,20 @@ export default function ReportsPage() {
 
       <main className="dashboard-page">
         <div className="dashboard-topbar">
-          <div className="fy-select">FY 2025–26</div>
+          <select
+            className="fy-select"
+            value={selectedFinancialYear}
+            onChange={(e) => {
+              localStorage.setItem("selectedFinancialYear", e.target.value);
+              setSelectedFinancialYear(e.target.value);
+            }}
+          >
+            {FINANCIAL_YEARS.map((year) => (
+              <option key={year} value={year}>
+                FY {year}
+              </option>
+            ))}
+          </select>
 
           <div className="dashboard-user-top">
             <h4>Minister</h4>
@@ -186,7 +203,7 @@ export default function ReportsPage() {
                     <tr>
                       <th>ADP #</th>
                       <th>Scheme Name</th>
-                      <th>Sector</th>
+                      <th>Sub-Sector</th>
                       <th>Approval Status</th>
                       <th>Exec Status</th>
                       <th>% Complete</th>
@@ -210,8 +227,8 @@ export default function ReportsPage() {
                                 row.executionStatus === "CONTINUE"
                                   ? "status-pill continue"
                                   : row.executionStatus === "UNSATISFACTORY"
-                                  ? "status-pill unsatisfactory"
-                                  : "status-pill neutral"
+                                    ? "status-pill unsatisfactory"
+                                    : "status-pill neutral"
                               }
                             >
                               {row.executionStatus}
@@ -225,8 +242,8 @@ export default function ReportsPage() {
                                     row.completionPercentage >= 70
                                       ? "mini-progress-fill green"
                                       : row.completionPercentage > 0
-                                      ? "mini-progress-fill amber"
-                                      : "mini-progress-fill gray"
+                                        ? "mini-progress-fill amber"
+                                        : "mini-progress-fill gray"
                                   }
                                   style={{ width: `${row.completionPercentage}%` }}
                                 />

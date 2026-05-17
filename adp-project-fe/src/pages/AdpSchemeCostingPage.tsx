@@ -9,6 +9,7 @@ import {
 import "../styles/dashboard.css";
 import "../styles/adp-scheme-form.css";
 import type { AdpSchemeCostingFormValues } from "../types/adpScheme.types";
+import { DEFAULT_FINANCIAL_YEAR, FINANCIAL_YEARS } from "../constants/financialYears";
 
 const defaultCostingForm: AdpSchemeCostingFormValues = {
   financialYear: "2025-2026",
@@ -40,6 +41,9 @@ export default function AdpSchemeCostingPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [selectedFinancialYear, setSelectedFinancialYear] = useState(
+    localStorage.getItem("selectedFinancialYear") || DEFAULT_FINANCIAL_YEAR
+  );
 
   useEffect(() => {
     if (!id) return;
@@ -86,8 +90,11 @@ export default function AdpSchemeCostingPage() {
     fetchScheme();
   }, [id]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
+
     setForm((prev) => ({
       ...prev,
       [name]: value,
@@ -142,7 +149,20 @@ export default function AdpSchemeCostingPage() {
 
       <main className="dashboard-page">
         <div className="dashboard-topbar">
-          <div className="fy-select">FY 2025–26</div>
+          <select
+            className="fy-select"
+            value={selectedFinancialYear}
+            onChange={(e) => {
+              localStorage.setItem("selectedFinancialYear", e.target.value);
+              setSelectedFinancialYear(e.target.value);
+            }}
+          >
+            {FINANCIAL_YEARS.map((year) => (
+              <option key={year} value={year}>
+                FY {year}
+              </option>
+            ))}
+          </select>
 
           <div className="dashboard-user-top">
             <h4>Minister</h4>
@@ -164,83 +184,90 @@ export default function AdpSchemeCostingPage() {
                 <div className="scheme-form-grid">
                   <div className="form-field form-field-wide">
                     <label>Financial Year</label>
-                    <input
+
+                    <select
                       name="financialYear"
                       value={form.financialYear}
                       onChange={handleChange}
-                      placeholder="2025-2026"
-                    />
+                      className="form-input"
+                    >
+                      {FINANCIAL_YEARS.map((year) => (
+                        <option key={year} value={year}>
+                          FY {year}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div className="form-field">
-                    <label>Estimated Cost Cap</label>
+                    <label>Estimated Cost Capital</label>
                     <input name="estimatedCostCap" value={form.estimatedCostCap} onChange={handleChange} />
                   </div>
                   <div className="form-field">
-                    <label>Estimated Cost Rev</label>
+                    <label>Estimated Cost Revenue</label>
                     <input name="estimatedCostRev" value={form.estimatedCostRev} onChange={handleChange} />
                   </div>
 
                   <div className="form-field">
-                    <label>Prior Exp Cap</label>
+                    <label>Prior Expenses Capital</label>
                     <input name="priorExpCap" value={form.priorExpCap} onChange={handleChange} />
                   </div>
                   <div className="form-field">
-                    <label>Prior Exp Rev</label>
+                    <label>Prior Expenses Revenue</label>
                     <input name="priorExpRev" value={form.priorExpRev} onChange={handleChange} />
                   </div>
 
                   <div className="form-field">
-                    <label>Throw Forward Cap</label>
+                    <label>Throw Forward Capital</label>
                     <input name="throwForwardCap" value={form.throwForwardCap} onChange={handleChange} />
                   </div>
                   <div className="form-field">
-                    <label>Throw Forward Rev</label>
+                    <label>Throw Forward Revenue</label>
                     <input name="throwForwardRev" value={form.throwForwardRev} onChange={handleChange} />
                   </div>
 
                   <div className="form-field">
-                    <label>Alloc CFY Cap</label>
+                    <label>Current Alloc CFY Capital</label>
                     <input name="allocCfyCap" value={form.allocCfyCap} onChange={handleChange} />
                   </div>
                   <div className="form-field">
-                    <label>Alloc CFY Rev</label>
+                    <label>Current Alloc CFY Revenue</label>
                     <input name="allocCfyRev" value={form.allocCfyRev} onChange={handleChange} />
                   </div>
 
                   <div className="form-field">
-                    <label>Rev Alloc CFY Cap</label>
+                    <label>Rev Current Alloc CFY Capital</label>
                     <input name="revAllocCfyCap" value={form.revAllocCfyCap} onChange={handleChange} />
                   </div>
                   <div className="form-field">
-                    <label>Rev Alloc CFY Rev</label>
+                    <label>Rev Current Alloc CFY Revenue</label>
                     <input name="revAllocCfyRev" value={form.revAllocCfyRev} onChange={handleChange} />
                   </div>
 
                   <div className="form-field">
-                    <label>Releases CFY Cap</label>
+                    <label>Releases CFY Capital</label>
                     <input name="releasesCfyCap" value={form.releasesCfyCap} onChange={handleChange} />
                   </div>
                   <div className="form-field">
-                    <label>Releases CFY Rev</label>
+                    <label>Releases CFY Revenue</label>
                     <input name="releasesCfyRev" value={form.releasesCfyRev} onChange={handleChange} />
                   </div>
 
                   <div className="form-field">
-                    <label>Module A Cap</label>
+                    <label>Module A Capital</label>
                     <input name="moduleACap" value={form.moduleACap} onChange={handleChange} />
                   </div>
                   <div className="form-field">
-                    <label>Module A Rev</label>
+                    <label>Module A Revenue</label>
                     <input name="moduleARev" value={form.moduleARev} onChange={handleChange} />
                   </div>
 
                   <div className="form-field">
-                    <label>Module B Cap</label>
+                    <label>Module B Capital</label>
                     <input name="moduleBCap" value={form.moduleBCap} onChange={handleChange} />
                   </div>
                   <div className="form-field">
-                    <label>Module B Rev</label>
+                    <label>Module B Revenue</label>
                     <input name="moduleBRev" value={form.moduleBRev} onChange={handleChange} />
                   </div>
                 </div>

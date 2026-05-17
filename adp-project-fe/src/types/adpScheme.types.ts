@@ -1,11 +1,57 @@
+export type AdpSubSector =
+  | "Teaching Hospitals"
+  | "Other Hospitals"
+  | "Medical Education"
+  | "PHC Administration / Training"
+  | "Preventive Programs"
+  | "Foreign Aided Projects";
+
+export type AdpDistrict =
+  | "Hyderabad"
+  | "Dadu"
+  | "Badin"
+  | "Sujawal"
+  | "Jamshoro"
+  | "Tando Allahyar"
+  | "Thatta"
+  | "Matiari"
+  | "Tando Muhammad Khan"
+  | "Mirpurkhas"
+  | "Tharparkar"
+  | "Umerkot"
+  | "Sukkur"
+  | "Ghotki"
+  | "Khairpur"
+  | "Larkana"
+  | "Jacobabad"
+  | "Shikarpur"
+  | "Kamber"
+  | "Kashmore"
+  | "Shaheed Benazirabad"
+  | "Sanghar"
+  | "Naushero Feroz"
+  | "Karachi West"
+  | "Karachi East"
+  | "Karachi Korangi"
+  | "Karachi Central"
+  | "Karachi South"
+  | "Karachi Malir"
+  | "Karachi Kemari";
+
+export type AdpSubType = "Likely to be completed" | "Standard";
+
 export interface AdpSchemeListItem {
   id: string;
   adpNo: string;
   schemeName: string;
-  district?: string;
-  sector?: string;
+  district?: AdpDistrict | string;
+
+  // Backend still uses `sector`; frontend label should show this as "Sub-sector"
+  sector?: AdpSubSector | string;
+  subSector?: AdpSubSector | string;
+
   type?: string;
-  subType?: string;
+  subType?: AdpSubType | string;
   scope?: string;
   approvalStatus?: string;
   executionStatus?: string;
@@ -40,10 +86,14 @@ export interface AdpSchemeListItem {
 export type AdpSchemeFormValues = {
   adpNo: string;
   schemeName: string;
-  district: string;
-  sector: string;
+  district: AdpDistrict | "";
+
+  // Keep field name `sector` because backend expects it.
+  // In the UI, label this field as "Sub-sector".
+  sector: AdpSubSector | "";
+
   type: string;
-  subType: string;
+  subType: AdpSubType | "";
   approvalStatus: string;
   executionStatus: string;
   initialApprovalDate: string;
@@ -135,10 +185,13 @@ export interface AdpSchemeDetail {
   id: string;
   adpNo: string;
   schemeName: string;
-  district?: string;
-  sector?: string;
+  district?: AdpDistrict | string;
+
+  sector?: AdpSubSector | string;
+  subSector?: AdpSubSector | string;
+
   type?: string;
-  subType?: string;
+  subType?: AdpSubType | string;
   approvalStatus?: string;
   executionStatus?: string;
   initialApprovalDate?: string;

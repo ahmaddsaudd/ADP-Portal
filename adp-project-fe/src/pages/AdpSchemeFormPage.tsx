@@ -8,7 +8,9 @@ import {
 } from "../services/adpSchemes.service";
 import "../styles/dashboard.css";
 import "../styles/adp-scheme-form.css";
-import type { AdpSchemeFormValues } from "../types/adpScheme.types";
+import type { AdpDistrict, AdpSchemeFormValues, AdpSubSector, AdpSubType } from "../types/adpScheme.types";
+import { ADP_DISTRICTS, ADP_SUB_SECTORS, ADP_SUB_TYPES } from "../constants/adpOptions";
+import { DEFAULT_FINANCIAL_YEAR, FINANCIAL_YEARS } from "../constants/financialYears";
 
 const defaultForm: AdpSchemeFormValues = {
   adpNo: "",
@@ -33,6 +35,9 @@ export default function AdpSchemeFormPage() {
   const [loading, setLoading] = useState(isEditMode);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [selectedFinancialYear, setSelectedFinancialYear] = useState(
+    localStorage.getItem("selectedFinancialYear") || DEFAULT_FINANCIAL_YEAR
+  );
 
   useEffect(() => {
     if (!id) return;
@@ -45,10 +50,14 @@ export default function AdpSchemeFormPage() {
         setForm({
           adpNo: data.adpNo || "",
           schemeName: data.schemeName || "",
-          district: data.district || "",
-          sector: data.sector || "",
+
+          district: (data.district as AdpDistrict) || "",
+          sector: (data.sector as AdpSubSector) || "",
+
           type: data.type || "",
-          subType: data.subType || "",
+
+          subType: (data.subType as AdpSubType) || "",
+
           approvalStatus: data.approvalStatus || "",
           executionStatus: data.executionStatus || "",
           initialApprovalDate: data.initialApprovalDate || "",
@@ -114,7 +123,20 @@ export default function AdpSchemeFormPage() {
 
       <main className="dashboard-page">
         <div className="dashboard-topbar">
-          <div className="fy-select">FY 2025–26</div>
+          <select
+            className="fy-select"
+            value={selectedFinancialYear}
+            onChange={(e) => {
+              localStorage.setItem("selectedFinancialYear", e.target.value);
+              setSelectedFinancialYear(e.target.value);
+            }}
+          >
+            {FINANCIAL_YEARS.map((year) => (
+              <option key={year} value={year}>
+                FY {year}
+              </option>
+            ))}
+          </select>
 
           <div className="dashboard-user-top">
             <h4>Minister</h4>
@@ -158,22 +180,34 @@ export default function AdpSchemeFormPage() {
 
                   <div className="form-field">
                     <label>District</label>
-                    <input
+                    <select
                       name="district"
                       value={form.district}
                       onChange={handleChange}
-                      placeholder="Lahore"
-                    />
+                    >
+                      <option value="">Select District</option>
+                      {ADP_DISTRICTS.map((item) => (
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div className="form-field">
-                    <label>Sector</label>
-                    <input
+                    <label>Sub-sector</label>
+                    <select
                       name="sector"
                       value={form.sector}
                       onChange={handleChange}
-                      placeholder="Health"
-                    />
+                    >
+                      <option value="">Select Sub-sector</option>
+                      {ADP_SUB_SECTORS.map((item) => (
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div className="form-field">
@@ -187,12 +221,18 @@ export default function AdpSchemeFormPage() {
 
                   <div className="form-field">
                     <label>Sub-Type</label>
-                    <input
+                    <select
                       name="subType"
                       value={form.subType}
                       onChange={handleChange}
-                      placeholder="Infrastructure"
-                    />
+                    >
+                      <option value="">Select Sub-Type</option>
+                      {ADP_SUB_TYPES.map((item) => (
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div className="form-field">

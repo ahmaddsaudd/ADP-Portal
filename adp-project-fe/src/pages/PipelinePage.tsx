@@ -6,6 +6,7 @@ import "../styles/pipeline.css";
 
 import type { PipelineBoardResponse, PipelineTab } from "../types/pipeline";
 import { getPipelineBoard } from "../api/dashboard.api";
+import { DEFAULT_FINANCIAL_YEAR, FINANCIAL_YEARS } from "../constants/financialYears";
 
 export default function PipelinePage() {
   const navigate = useNavigate();
@@ -14,13 +15,16 @@ export default function PipelinePage() {
   const [board, setBoard] = useState<PipelineBoardResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedFinancialYear, setSelectedFinancialYear] = useState(
+    localStorage.getItem("selectedFinancialYear") || DEFAULT_FINANCIAL_YEAR
+  );
 
   useEffect(() => {
     const fetchBoard = async () => {
       try {
         setLoading(true);
         setError("");
-        const result = await getPipelineBoard(tab);
+        const result = await getPipelineBoard(tab,selectedFinancialYear);
         setBoard(result);
       } catch (err: any) {
         setError(err.response?.data?.message || "Failed to load pipeline board");
@@ -30,7 +34,7 @@ export default function PipelinePage() {
     };
 
     fetchBoard();
-  }, [tab]);
+  }, [tab, selectedFinancialYear]);
 
   return (
     <div className="dashboard-layout">
@@ -38,7 +42,20 @@ export default function PipelinePage() {
 
       <main className="dashboard-page">
         <div className="dashboard-topbar">
-          <div className="fy-select">FY 2025–26</div>
+          <select
+            className="fy-select"
+            value={selectedFinancialYear}
+            onChange={(e) => {
+              localStorage.setItem("selectedFinancialYear", e.target.value);
+              setSelectedFinancialYear(e.target.value);
+            }}
+          >
+            {FINANCIAL_YEARS.map((year) => (
+              <option key={year} value={year}>
+                FY {year}
+              </option>
+            ))}
+          </select>
 
           <div className="dashboard-user-top">
             <h4>Minister</h4>
@@ -91,7 +108,7 @@ export default function PipelinePage() {
 
                       <div className="pipeline-column-body">
                         {column.items.length === 0 ? (
-                          <div className="pipeline-empty">No schemes pending here</div>
+                          <div className="pipeline-empty">No schemes Proposed here</div>
                         ) : (
                           column.items.map((item) => (
                             <div

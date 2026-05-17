@@ -42,12 +42,12 @@ export default function PipelineCard({ item }: Props) {
         </div>
 
         <div className="pipeline-meta-item">
-          <span>Sector</span>
+          <span>Sub-Sector</span>
           <strong>{item.sector || "—"}</strong>
         </div>
 
         <div className="pipeline-meta-item">
-          <span>Pending With</span>
+          <span>Proposed With</span>
           <strong>{formatPendingWith(item.pendingWith)}</strong>
         </div>
 

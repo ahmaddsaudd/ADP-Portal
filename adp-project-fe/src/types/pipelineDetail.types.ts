@@ -8,7 +8,14 @@ export type PipelineStageItem = {
   pendingWith?: string | null;
 };
 
-export type PipelineSchemeDetail = {
+export type PipelineRemark = {
+  id: string;
+  comment: string;
+  commentedBy?: string;
+  createdAt: string | null;
+};
+
+export type  PipelineSchemeDetail = {
   id: string;
   adpNo: string;
   schemeName: string;
@@ -30,11 +37,13 @@ export type PipelineSchemeDetail = {
   expenditureCfy?: number;
   statusNote?: string | null;
   pipelineStages: PipelineStageItem[];
+  remarks: PipelineRemark[];
 };
 
 export type PhysicalProgressRemark = {
   id: string;
-  text: string;
+  comment: string;
+  commentedBy?: string;
   createdAt: string | null;
 };
 

@@ -17,6 +17,7 @@ import type {
 } from "../types/pipelineDetail.types";
 import "../styles/dashboard.css";
 import "../styles/pipeline-detail.css";
+import { addSchemeComment } from "../services/pipelineDetail.service";
 
 type DetailTab =
   | "PIPELINE_STATUS"
@@ -43,6 +44,26 @@ export default function PipelineDetailPage() {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [error, setError] = useState("");
   const [remark, setRemark] = useState("");
+
+
+
+  const handlePostRemark = async () => {
+    if (!id || !remark.trim()) return;
+
+    try {
+      setError("");
+
+      await addSchemeComment(id, {
+        comment: remark.trim(),
+      });
+      setRemark("");
+
+      const refreshed = await getPipelineSchemeDetail(id);
+      setScheme(refreshed);
+    } catch (err: any) {
+      setError(err.response?.data?.message || "Failed to post remark");
+    }
+  };
 
   useEffect(() => {
     const fetchDetail = async () => {
@@ -178,7 +199,7 @@ export default function PipelineDetailPage() {
                 <div className="detail-status-badge">{scheme.approvalStatus}</div>
 
                 <div className="detail-info-grid">
-                  <div><span>Sector</span><strong>{scheme.sector || "—"}</strong></div>
+                  <div><span>Sub-Sector</span><strong>{scheme.sector || "—"}</strong></div>
                   <div><span>District</span><strong>{scheme.district || "—"}</strong></div>
                   <div><span>Type</span><strong>{scheme.type || "—"}</strong></div>
                   <div><span>Sub-Type</span><strong>{scheme.subType || "—"}</strong></div>
@@ -257,10 +278,37 @@ export default function PipelineDetailPage() {
                           onChange={(e) => setRemark(e.target.value)}
                           placeholder="Add remark..."
                         />
-                        <button type="button">Post</button>
+                        <button type="button" onClick={handlePostRemark}>
+                          Post
+                        </button>
                       </div>
                     </div>
+                    <div className="scheme-comments-box">
+                      <h3>Remarks / Comments</h3>
 
+                      {!scheme.remarks?.length ? (
+                        <p className="detail-empty-text">No comments added yet.</p>
+                      ) : (
+                        <div className="scheme-comments-list">
+                          {scheme.remarks.map((item) => (
+                            <div key={item.id} className="scheme-comment-card">
+                              <div className="scheme-comment-header">
+                                {/* <div className="scheme-comment-avatar">
+                                  {(item.commentedBy || "S").charAt(0).toUpperCase()}
+                                </div> */}
+
+                                <div>
+                                  <h4>{item.commentedBy || "System User"}</h4>
+                                  <small>{item.createdAt || "Unknown date"}</small>
+                                </div>
+                              </div>
+
+                              <p>{item.comment}</p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                     <div className="detail-stage-section">
                       <h3>Stage Progression</h3>
 
@@ -339,9 +387,10 @@ export default function PipelineDetailPage() {
                     ) : (
                       <div className="remarks-list">
                         {physicalProgress.remarks.map((item) => (
-                          <div key={item.id} className="remark-card">
-                            <p>{item.text}</p>
+                          <div key={item.id}>
+                            <h4>{item.commentedBy || 'System User'}</h4>
                             <small>{item.createdAt}</small>
+                            <p>{item.comment}</p>
                           </div>
                         ))}
                       </div>

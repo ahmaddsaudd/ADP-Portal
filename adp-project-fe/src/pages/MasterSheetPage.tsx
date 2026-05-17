@@ -7,6 +7,7 @@ import { getAdpSchemes } from "../services/adpSchemes.service";
 import type { AdpSchemeListItem } from "../types/adpScheme.types";
 import "../styles/dashboard.css";
 import "../styles/master-sheet.css";
+import { DEFAULT_FINANCIAL_YEAR, FINANCIAL_YEARS } from "../constants/financialYears";
 
 const normalize = (value?: string) =>
   (value || "").toUpperCase().replace(/\s+/g, "_");
@@ -21,12 +22,15 @@ export default function MasterSheetPage() {
   const approvalStatusFilter = searchParams.get("approvalStatus") || "";
   const searchFilter = searchParams.get("search") || "";
 
+  const [selectedFinancialYear, setSelectedFinancialYear] = useState(
+    localStorage.getItem("selectedFinancialYear") || DEFAULT_FINANCIAL_YEAR
+  );
+
   useEffect(() => {
     const fetchSchemes = async () => {
       try {
         setLoading(true);
-        const result = await getAdpSchemes();
-        setSchemes(result);
+        const result = await getAdpSchemes(selectedFinancialYear); setSchemes(result);
       } catch (err: any) {
         setError(err.response?.data?.message || "Failed to load schemes");
       } finally {
@@ -35,7 +39,7 @@ export default function MasterSheetPage() {
     };
 
     fetchSchemes();
-  }, []);
+  }, [selectedFinancialYear]);
 
   const filteredSchemes = useMemo(() => {
     return schemes.filter((scheme) => {
@@ -79,7 +83,20 @@ export default function MasterSheetPage() {
 
       <main className="dashboard-page">
         <div className="dashboard-topbar">
-          <div className="fy-select">FY 2025–26</div>
+          <select
+            className="fy-select"
+            value={selectedFinancialYear}
+            onChange={(e) => {
+              localStorage.setItem("selectedFinancialYear", e.target.value);
+              setSelectedFinancialYear(e.target.value);
+            }}
+          >
+            {FINANCIAL_YEARS.map((year) => (
+              <option key={year} value={year}>
+                FY {year}
+              </option>
+            ))}
+          </select>
 
           <div className="dashboard-user-top">
             <h4>Minister</h4>

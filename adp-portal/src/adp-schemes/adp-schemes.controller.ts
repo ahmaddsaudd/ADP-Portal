@@ -10,6 +10,7 @@ import {
   UploadedFile,
   UseGuards,
   Req,
+  Query,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -37,6 +38,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path/win32';
 import { UploadGalleryImageDto } from './dto/upload-gallery-image.dto';
+import { AdpSchemeComment } from './entities/adp-scheme-comment.entity';
 
 function galleryFilename(
   req: any,
@@ -64,8 +66,9 @@ export class AdpSchemesController {
   @Roles(UserRole.ADMIN)
   @Get()
   @ApiOperation({ summary: 'Get all ADP schemes' })
-  findAll() {
-    return this.adpSchemesService.findAll();
+  @Get()
+  findAll(@Query('financialYear') financialYear = '2025-26') {
+    return this.adpSchemesService.findAll(financialYear);
   }
 
   @Get(':id')
@@ -113,14 +116,17 @@ export class AdpSchemesController {
   }
 
   @Post(':id/comments')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Add comment to an ADP scheme' })
   @ApiParam({ name: 'id', type: String })
   @ApiBody({ type: CreateAdpSchemeCommentDto })
   addComment(
     @Param('id') adpSchemeId: string,
     @Body() dto: CreateAdpSchemeCommentDto,
+    @Req() req: any,
   ) {
-    return this.adpSchemesService.addComment(adpSchemeId, dto);
+    console.log(req.user,'user')
+    return this.adpSchemesService.addComment(adpSchemeId, dto, req.user);
   }
 
   @Get(':id/pipeline-detail')

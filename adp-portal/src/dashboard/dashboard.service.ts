@@ -24,8 +24,10 @@ export class DashboardService {
     private readonly commentRepository: Repository<AdpSchemeComment>,
   ) { }
 
-  async getOverview() {
-    const schemes = await this.adpSchemeRepository.find();
+  async getOverview(financialYear = '2025-26') {
+    const schemes = await this.adpSchemeRepository.find({
+      where: { financialYear },
+    });
 
     const totalSchemes = schemes.length;
 
@@ -121,11 +123,10 @@ export class DashboardService {
     };
   }
 
-  async getPipelineBoard(tab: PipelineTab) {
+  async getPipelineBoard(tab: PipelineTab, financialYear = '2025-26') {
     const schemes = await this.adpSchemeRepository.find({
-      order: {
-        updatedAt: 'DESC',
-      },
+      where: { financialYear },
+      order: { updatedAt: 'DESC' },
     });
     const filteredSchemes = schemes.filter(
       (scheme) => this.getPipelineTab(scheme) === tab,
@@ -170,8 +171,9 @@ export class DashboardService {
     };
   }
 
-  async getGlobalMonthlyFinancials(): Promise<GlobalMonthlyFinancialsResponse> {
+  async getGlobalMonthlyFinancials(financialYear = '2025-26'): Promise<GlobalMonthlyFinancialsResponse> {
     const schemes = await this.adpSchemeRepository.find({
+      where: { financialYear },
       order: {
         createdAt: 'DESC',
       },
@@ -204,8 +206,9 @@ export class DashboardService {
     return { rows };
   }
 
-  async getGlobalPhysicalProgress(): Promise<GlobalPhysicalProgressResponse> {
+  async getGlobalPhysicalProgress(financialYear = '2025-26'): Promise<GlobalPhysicalProgressResponse> {
     const schemes = await this.adpSchemeRepository.find({
+      where: { financialYear },
       order: {
         createdAt: 'DESC',
       },

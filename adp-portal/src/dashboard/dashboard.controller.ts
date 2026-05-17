@@ -14,8 +14,8 @@ export class DashboardController {
   @Get('overview')
   @ApiOperation({ summary: 'Get dashboard overview data' })
   @ApiOkResponse({ description: 'Dashboard overview returned successfully' })
-  async getOverview() {
-    return this.dashboardService.getOverview();
+  getOverview(@Query('financialYear') financialYear = '2025-26') {
+    return this.dashboardService.getOverview(financialYear);
   }
 
   @Get('pipeline-board')
@@ -27,20 +27,25 @@ export class DashboardController {
   })
   @ApiOkResponse({ description: 'Pipeline board returned successfully' })
   async getPipelineBoard(@Query() query: GetPipelineBoardDto) {
-    return this.dashboardService.getPipelineBoard(query.tab);
+    return this.dashboardService.getPipelineBoard(query.tab, query.financialYear || '2025-26');
   }
 
   @Get('reports/monthly-financials')
   @ApiOperation({ summary: 'Get global monthly financials report' })
   @ApiOkResponse({ description: 'Monthly financials report returned successfully' })
-  async getGlobalMonthlyFinancials() {
-    return this.dashboardService.getGlobalMonthlyFinancials();
+  getGlobalMonthlyFinancials(
+    @Query('financialYear') financialYear = '2025-26',
+  ) {
+    return this.dashboardService.getGlobalMonthlyFinancials(financialYear);
   }
+
 
   @Get('reports/physical-progress')
   @ApiOperation({ summary: 'Get global physical progress report' })
   @ApiOkResponse({ description: 'Physical progress report returned successfully' })
-  async getGlobalPhysicalProgress() {
-    return this.dashboardService.getGlobalPhysicalProgress();
+  getGlobalPhysicalProgress(
+    @Query('financialYear') financialYear = '2025-26',
+  ) {
+    return this.dashboardService.getGlobalPhysicalProgress(financialYear);
   }
 }

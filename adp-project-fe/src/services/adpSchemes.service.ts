@@ -13,9 +13,18 @@ const pickCurrentFyCosting = (costings: any[] = []) => {
   return costings.find((c) => c.financialYear === currentFy) || costings[0];
 };
 
-export const getAdpSchemes = async (): Promise<AdpSchemeListItem[]> => {
-  const response = await apiClient.get("/adp-schemes");
-  const rows = Array.isArray(response.data) ? response.data : response.data.data;
+export const getAdpSchemes = async (
+  financialYear?: string,
+): Promise<AdpSchemeListItem[]> => {
+  const response = await apiClient.get("/adp-schemes", {
+    params: {
+      financialYear,
+    },
+  });
+
+  const rows = Array.isArray(response.data)
+    ? response.data
+    : response.data.data;
 
   return rows.map((item: any) => {
     const costing = pickCurrentFyCosting(item.costings);

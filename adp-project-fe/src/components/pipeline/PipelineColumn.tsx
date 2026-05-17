@@ -15,7 +15,7 @@ export default function PipelineColumn({ column }: Props) {
 
       <div className="pipeline-column-body">
         {column.items.length === 0 ? (
-          <div className="pipeline-empty">No schemes pending here</div>
+          <div className="pipeline-empty">No schemes proposed here</div>
         ) : (
           column.items.map((item) => (
             <PipelineCard key={item.id} item={item} />

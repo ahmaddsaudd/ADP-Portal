@@ -1,6 +1,7 @@
 export type PhysicalProgressRemarkItem = {
   id: string;
-  text: string;
+  comment: string;
+  commentedBy?: string;
   createdAt: string | null;
 };
 

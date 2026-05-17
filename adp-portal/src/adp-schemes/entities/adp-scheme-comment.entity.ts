@@ -25,7 +25,7 @@ export class AdpSchemeComment {
   @Column({ type: 'text' })
   comment: string;
 
-  @Column({ name: 'commented_by', type: 'uuid', nullable: true })
+  @Column({ name: 'commented_by', type: 'varchar', length: 150, nullable: true })
   commentedBy: string | null;
 
   @CreateDateColumn({ name: 'created_at' })

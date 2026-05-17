@@ -23,7 +23,7 @@ export default function StalledSchemesCard({ schemes }: Props) {
               <h4 className="stalled-name">{scheme.schemeName || "Unnamed Scheme"}</h4>
 
               <p className="stalled-pending">
-                PENDING: {scheme.pendingWith || "N/A"}
+                Proposed: {scheme.pendingWith || "N/A"}
               </p>
             </div>
           ))

@@ -11,7 +11,7 @@ export async function getPipelineSchemeDetail(
   id: string
 ): Promise<PipelineSchemeDetail> {
   const { data } = await apiClient.get(`/adp-schemes/${id}/pipeline-detail`);
-  console.log("API response for scheme detail:", data); // Debug log to verify API response
+  console.log("API response for scheme detail:", data);
   return data;
 }
 
@@ -26,7 +26,6 @@ export async function getSchemeMonthlyFinancials(
   id: string
 ): Promise<MonthlyFinancialsResponse> {
   const { data } = await apiClient.get(`/adp-schemes/${id}/monthly-financials`);
-  // console.log("Fetched monthly financials data:", data); // Debug log to verify financials data
   return data;
 }
 
@@ -61,5 +60,13 @@ export async function uploadSchemeGalleryImage(
     },
   });
 
+  return data;
+}
+
+export async function addSchemeComment(
+  id: string,
+  payload: { comment: string }
+) {
+  const { data } = await apiClient.post(`/adp-schemes/${id}/comments`, payload);
   return data;
 }

@@ -31,16 +31,18 @@ export class AuthService {
       sub: user.id,
       email: user.email,
       role: user.role, 
+      fullName: user.fullName,
     };
 
     const accessToken = await this.jwtService.signAsync(payload);
 
     return {
       accessToken,
-      user: {
+      user: { 
         id: user.id,
         email: user.email,
         role: user.role,
+        fullName: user.fullName,
       },
     };
   }

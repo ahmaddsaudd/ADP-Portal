@@ -7,11 +7,15 @@ import { getDashboardData } from "../services/dashboard.service";
 import type { DashboardResponse } from "../types/dashboard.types";
 import "../styles/dashboard.css";
 import { useNavigate } from "react-router-dom";
+import { DEFAULT_FINANCIAL_YEAR, FINANCIAL_YEARS } from "../constants/financialYears";
 
 export default function DashboardPage() {
     const [data, setData] = useState<DashboardResponse | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [selectedFinancialYear, setSelectedFinancialYear] = useState(
+        localStorage.getItem("selectedFinancialYear") || DEFAULT_FINANCIAL_YEAR
+    );
 
     const navigate = useNavigate();
 
@@ -53,7 +57,20 @@ export default function DashboardPage() {
 
             <main className="dashboard-page">
                 <div className="dashboard-topbar">
-                    <div className="fy-select">FY 2025–26</div>
+                    <select
+                        className="fy-select"
+                        value={selectedFinancialYear}
+                        onChange={(e) => {
+                            localStorage.setItem("selectedFinancialYear", e.target.value);
+                            setSelectedFinancialYear(e.target.value);
+                        }}
+                    >
+                        {FINANCIAL_YEARS.map((year) => (
+                            <option key={year} value={year}>
+                                FY {year}
+                            </option>
+                        ))}
+                    </select>
 
                     <div className="dashboard-user-top">
                         <h4>Minister</h4>
